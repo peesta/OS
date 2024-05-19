@@ -18,6 +18,9 @@ void handler_signal(int signal) {
 
 int main() {
     
+    __pid_t pid = getpid();
+    printf("Current PID: %d\n", pid);
+
     if (signal(SIGUSR1, handler_signal) == SIG_ERR) {
         exit(1);
     }
