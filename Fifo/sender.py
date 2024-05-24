@@ -5,7 +5,7 @@ import struct
 FIFO_NAME = 'calc_fifo'
 
 def create_task(operator, operand1, operand2):
-    return struct.pack('c ii', operator, operand1, operand2)
+    return struct.pack('c i i', operator, operand1, operand2)
 
 
 def take_task():
@@ -22,7 +22,7 @@ def take_task():
     if operand2 == 'exit':
         os.remove(FIFO_NAME)
         sys.exit(0)
-    else: operand2 = int(operand1)
+    else: operand2 = int(operand2)
 
     return operator, operand1, operand2
 
@@ -31,7 +31,6 @@ while True:
         os.mkfifo(FIFO_NAME)
     
     operator, operand1, operand2 = take_task()
-    print(operator)
 
     if not operator in ['+', '-', '*', '/']:
         print('Not supported operator')
